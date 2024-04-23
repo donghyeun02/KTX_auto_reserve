@@ -12,9 +12,9 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI() {
         Info info = new Info()
-                .title("swagger 테스트")
+                .title("KTX 자동 예매 API")
                 .version("1.0")
-                .description("API에 대한 설명 부분");
+                .description("값 입력 후 헤드리스 모드로 실행이 됩니다.");
         return new OpenAPI()
                 .components(new Components())
                 .info(info);
