@@ -8,7 +8,7 @@ group = 'org.prac'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '21'
+    sourceCompatibility = '17'
 }
 
 repositories {
@@ -21,7 +21,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-    implementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
+//    implementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

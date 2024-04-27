@@ -1,16 +1,13 @@
 package org.prac.korailreserve;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.LocalTime;
 import java.util.List;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -50,11 +47,13 @@ public class TicketService {
     // Web driver initialize
     private WebDriver initializeWebDriver() {
         // Chrome Driver
-        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.chromedriver().setup();
 
         // Chrome option : headless
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
+
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 
         WebDriver driver = new ChromeDriver(options);
 
@@ -150,12 +149,7 @@ public class TicketService {
                     WebElement reservationButton = findReservationButton(driver, i);
                     if (reservationButton != null) {
                         reservationButton.click();
-
-                        try {
-                            handleReservationModal(driver, wait);
-                        } catch (Exception e) {
-                            return true;
-                        }
+                        handleReservationModal(driver, wait);
 
                         return true;
                     }
