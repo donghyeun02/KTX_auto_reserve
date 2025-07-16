@@ -14,7 +14,10 @@ public class SwaggerConfig {
         Info info = new Info()
                 .title("KTX 자동 예매 API")
                 .version("1.0")
-                .description("값 입력 후 헤드리스 모드로 실행이 됩니다.");
+                .description("**사용자ID** = 코레일 회원번호<br>"
+                        + "**출발,도착역** = '역' 제외 (서울, 부산, 울산(통도사), 경주 ...)<br>"
+                        + "**월, 일, 시간, 분** = 두자릿 수 ( 1일 : 01)");
+
         return new OpenAPI()
                 .components(new Components())
                 .info(info);
