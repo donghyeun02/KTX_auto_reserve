@@ -1,4 +1,4 @@
-package org.prac.korailreserve;
+package org.prac.korailreserve.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;

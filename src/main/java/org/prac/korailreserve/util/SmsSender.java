@@ -1,4 +1,4 @@
-package org.prac.korailreserve;
+package org.prac.korailreserve.util;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

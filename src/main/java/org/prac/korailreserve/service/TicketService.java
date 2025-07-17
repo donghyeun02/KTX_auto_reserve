@@ -5,6 +5,8 @@ import java.util.List;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 
+import org.prac.korailreserve.util.SmsSender;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,13 +19,14 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TicketService {
-    @Autowired
-    private SmsSender smsSender;
+//    @Autowired
+//    private SmsSender smsSender;
 
     public String reserveTicket(String phoneNumber, String txtMember, String txtPwd, String txtGoStart, String txtGoEnd, String selMonth,
                                 String selDay, Integer startHour, Integer startMin, Integer endHour, Integer endMin) {
@@ -45,7 +48,7 @@ public class TicketService {
             if (ticketReserved) {
                 System.out.println(txtMember + " Ticket Reserved !");
                 result.append("Ticket Reserved !");
-                smsSender.sendSms(phoneNumber, "[코레일 예약 성공]\n" + "회원 번호 : " + txtMember + "\n" + "코레일 앱에서 결제");
+//                smsSender.sendSms(phoneNumber, "[코레일 예약 성공]\n" + "회원 번호 : " + txtMember + "\n" + "코레일 앱에서 결제");
             } else {
                 result.append("No more pages. Ticket not found.");
             }
@@ -89,6 +92,7 @@ public class TicketService {
         // Safari Driver
 //        System.setProperty("webdriver.safari.driver", "/System/Cryptexes/App/usr/bin/safaridriver");
 //        WebDriver driver = new SafariDriver();
+
 //        driver.manage().window().setSize(new Dimension(1600, 1200));
         return driver;
     }
@@ -98,6 +102,7 @@ public class TicketService {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("https://www.korail.com/ticket/login");
 
+        handleKorailPopup(driver);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id"))).sendKeys(txtMember);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("password"))).sendKeys(txtPwd);
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn_bn-depblue"))).click();
@@ -105,10 +110,9 @@ public class TicketService {
 
     // To reserve Page
     private void navigateToReservationPage(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         handleKorailPopup(driver);
-
         try {
             WebElement reservationLink = wait.until(
                     ExpectedConditions.presenceOfElementLocated(By.cssSelector("a[href='/ticket/search/general']"))
@@ -117,7 +121,7 @@ public class TicketService {
             ((org.openqa.selenium.JavascriptExecutor) driver)
                     .executeScript("arguments[0].scrollIntoView({block: 'center'});", reservationLink);
 
-            Thread.sleep(500);
+            Thread.sleep(100);
 
             ((org.openqa.selenium.JavascriptExecutor) driver)
                     .executeScript("arguments[0].click();", reservationLink);
@@ -129,7 +133,7 @@ public class TicketService {
 
     private void handleKorailPopup(WebDriver driver) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             WebElement popup = wait.until(ExpectedConditions.presenceOfElementLocated(
                     By.cssSelector(".layerWrap.emer_pop")));
 
