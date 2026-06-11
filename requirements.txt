@@ -1,0 +1,3 @@
+selenium-driverless>=1.9
+fastapi>=0.110
+uvicorn>=0.29
